@@ -4,10 +4,16 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.List;
 
+@Entity
+@Table(name = "Libros")
 public class Libros {
 
+    @Id
     private String isbn;
     private String titulo;
     private String categoria;

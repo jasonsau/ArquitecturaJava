@@ -11,6 +11,6 @@
         <property name = "connection.pool_size">5</property>
         <property name = "dialect">org.hibernate.dialect.MySQL5Dialect</property>
         <property name = "show_sql">true</property>
-        <mapping resource="Libro.xml" />
+        <mapping class="com.js.arquictecturajava.Libros" />
     </session-factory>
 </hibernate-configuration>
