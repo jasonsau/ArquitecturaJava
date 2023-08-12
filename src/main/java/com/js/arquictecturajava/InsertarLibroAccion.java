@@ -10,7 +10,7 @@ public class InsertarLibroAccion extends Acion{
         String isbn = httpServletRequest.getParameter("isbn");
         String nombre = httpServletRequest.getParameter("titulo");
         String categoria = httpServletRequest.getParameter("categoria");
-        Libro libro = new Libro(isbn, nombre, categoria);
+        Libros libro = new Libros(isbn, nombre, categoria);
         libro.insertarLibro();
         return "MostrarLibros.do";
     }

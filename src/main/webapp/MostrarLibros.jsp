@@ -1,10 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="java.util.List" %>
-<%@page import="com.js.arquictecturajava.Libro" %>
+<%@page import="com.js.arquictecturajava.Libros" %>
 
 <%
-    Libro libro = new Libro();
-    List<Libro> libros = (List<Libro>) request.getAttribute("libros");
+    Libros libro = new Libros();
+    List<Libros> libros = (List<Libros>) request.getAttribute("libros");
     List<String> categorias = (List<String>) request.getAttribute("categorias");
 %>
 <body>
@@ -25,7 +25,7 @@
 
 
 <%
-    for (Libro book: libros) {
+    for (Libros book: libros) {
 %>
     <%=book.getIsbn()%>
     <%=book.getTitulo()%>

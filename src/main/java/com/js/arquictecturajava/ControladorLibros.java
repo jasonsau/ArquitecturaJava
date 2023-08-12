@@ -14,7 +14,6 @@ public class ControladorLibros extends HttpServlet {
         RequestDispatcher despachador = null;
         Acion accion = null;
         String url = req.getServletPath();
-        System.out.println(url);
         try {
             accion = Acion.getAction(url);
             despachador = req.getRequestDispatcher(accion.ejecutar(req, resp));

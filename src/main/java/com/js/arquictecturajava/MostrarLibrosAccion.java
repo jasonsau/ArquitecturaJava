@@ -8,10 +8,9 @@ public class MostrarLibrosAccion extends Acion{
 
     @Override
     public String ejecutar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        Libro libro =new Libro();
-        List<Libro> libros =  libro.seleccionarTodos();
-        List<String> categorias = Libro.seleccionarTodasLasCategorias();
-
+        Libros libro =new Libros();
+        List<Libros> libros =  libro.seleccionarTodos();
+        List<String> categorias = Libros.seleccionarTodasLasCategorias();
         httpServletRequest.setAttribute("libros", libros);
         httpServletRequest.setAttribute("categorias", categorias);
         return "MostrarLibros.jsp";

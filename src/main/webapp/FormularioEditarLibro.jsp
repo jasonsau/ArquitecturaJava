@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.js.arquictecturajava.Libro" %>
+<%@ page import="com.js.arquictecturajava.Libros" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,7 @@
 </head>
 <%
     List<String> categorias = (List<String>) request.getAttribute("categorias");
-    Libro libro = (Libro) request.getAttribute("libro");
+    Libros libro = (Libros) request.getAttribute("libro");
 %>
 <%=libro.getCategoria()%>
 <body>

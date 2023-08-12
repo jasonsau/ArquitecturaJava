@@ -9,8 +9,8 @@ public class FormularioEditarLibroAccion extends Acion{
     @Override
     public String ejecutar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
         String isbn = httpServletRequest.getParameter("isbn");
-        List<String> categorias = Libro.seleccionarTodasLasCategorias();
-        Libro libro = Libro.searchLibro(isbn);
+        List<String> categorias = Libros.seleccionarTodasLasCategorias();
+        Libros libro = Libros.searchLibro(isbn);
         httpServletRequest.setAttribute("categorias", categorias);
         httpServletRequest.setAttribute("libro", libro);
         return "FormularioEditarLibro.jsp";

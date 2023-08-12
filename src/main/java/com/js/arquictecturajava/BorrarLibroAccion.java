@@ -9,7 +9,7 @@ public class BorrarLibroAccion extends Acion{
     public String ejecutar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
         String isbn = httpServletRequest.getParameter("isbn");
-        Libro libro = new Libro(isbn);
+        Libros libro = new Libros(isbn);
         libro.deleteLibro();
         return "MostrarLibros.do";
     }
