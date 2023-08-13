@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
+<%@ page import="com.js.arquictecturajava.Categoria" %>
 <!DOCTYPE html>
 <html>
 <head>
   <title>Insertar Libro</title>
 </head>
 <%
-  List<String> categorias = (List<String>) request.getAttribute("categorias");
+  List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
 %>
 <body>
   <form action = "InsertarLibro.do">
@@ -24,8 +25,8 @@
         <label for = "categoria">Categoria: </label>
         <select id = "categoria" name = "categoria">
           <option>Seleccione una</option>
-          <% for(String categoria: categorias) { %>
-            <option value="<%=categoria%>"><%=categoria%></option>
+          <% for(Categoria categoria: categorias) { %>
+            <option value="<%=categoria.getId()%>"><%=categoria.getDescripcion()%></option>
           <%}%>
         </select>
       </p>

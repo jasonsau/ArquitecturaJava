@@ -4,9 +4,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -16,7 +14,11 @@ public class Libros {
     @Id
     private String isbn;
     private String titulo;
-    private String categoria;
+    @ManyToOne
+    @JoinColumn(name = "categoria")
+    private Categoria categoria;
+
+
 
     @Override
     public int hashCode() {
@@ -30,7 +32,7 @@ public class Libros {
     }
 
     public Libros() {}
-    public Libros(String isbn, String titulo, String categoria) {
+    public Libros(String isbn, String titulo, Categoria categoria) {
         super();
         this.isbn = isbn;
         this.titulo = titulo;
@@ -57,18 +59,18 @@ public class Libros {
         this.titulo = titulo;
     }
 
-    public String getCategoria() {
+    public Categoria getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Categoria categoria) {
         this.categoria = categoria;
     }
 
     public List<Libros> seleccionarTodos(){
         SessionFactory sessionFactory = HibernateHelper.getSessionFactory();
         Session session = sessionFactory.openSession();
-        List<Libros> listaDeLibros = session.createQuery(" from Libros libro").list();
+        List<Libros> listaDeLibros = session.createQuery(" from Libros libro right join fetch libro.categoria").list();
         session.close();
         return listaDeLibros;
     }

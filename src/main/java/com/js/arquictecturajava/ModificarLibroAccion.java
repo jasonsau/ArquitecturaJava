@@ -11,7 +11,7 @@ public class ModificarLibroAccion extends Acion{
         String titulo = httpServletRequest.getParameter("titulo");
         String categoria = httpServletRequest.getParameter("categoria");
 
-        Libros libro = new Libros(isbn, titulo, categoria);
+        Libros libro = new Libros(isbn, titulo, new Categoria(categoria));
         libro.updateLibro();
         return "MostrarLibros.do";
     }

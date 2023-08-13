@@ -9,7 +9,7 @@ public class FormularioInsertarLibroAccion extends Acion{
 
     @Override
     public String ejecutar(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        List<String> categorias = Libros.seleccionarTodasLasCategorias();
+        List<Categoria> categorias = Categoria.buscarTodas();
         httpServletRequest.setAttribute("categorias", categorias);
         return "FormularioInsertarLibro.jsp";
     }

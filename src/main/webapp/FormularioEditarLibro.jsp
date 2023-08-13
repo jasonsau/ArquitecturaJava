@@ -1,16 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.js.arquictecturajava.Libros" %>
+<%@ page import="com.js.arquictecturajava.Categoria" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Editar Libro</title>
 </head>
 <%
-    List<String> categorias = (List<String>) request.getAttribute("categorias");
+    List<Categoria> categorias = (List<Categoria>) request.getAttribute("categorias");
     Libros libro = (Libros) request.getAttribute("libro");
 %>
-<%=libro.getCategoria()%>
 <body>
 <form action = "ModificarLibro.do">
     <fieldset>
@@ -27,11 +27,11 @@
             <label for = "categoria">Categoria: </label>
             <select id = "categoria" name = "categoria">
                 <option>Seleccione una</option>
-                <% for(String categoria: categorias) {
-                    if(categoria.equals(libro.getCategoria())) {%>
-                        <option value="<%=categoria%>" selected><%=categoria%></option>
+                <% for(Categoria categoria: categorias) {
+                    if(categoria.getId().equals(libro.getCategoria().getId())) {%>
+                        <option value="<%=categoria.getId()%>" selected><%=categoria.getDescripcion()%></option>
                     <%} else {%>
-                        <option value="<%=categoria%>" ><%=categoria%></option>
+                        <option value="<%=categoria.getId()%>" ><%=categoria.getDescripcion()%></option>
 
                 <%}}%>
             </select>
