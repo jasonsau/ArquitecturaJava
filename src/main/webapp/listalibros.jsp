@@ -1,5 +1,5 @@
 <%@ page import="java.sql.*" %>
-<%@ page import = "web1.LibroAR" %>
+<%@ page import = "web1.Libro" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>
@@ -20,12 +20,12 @@
 		}
 		out.println("</select>");
 
-		List<LibroAR> listaLibros = (List<LibroAR>) request.getAttribute("listaLibros");
+		List<Libro> listaLibros = (List<Libro>) request.getAttribute("listaLibros");
 		out.println("<h2>Lista de Libros</h2>");
 		out.println("<table border ='1'>");
 		out.println("<tr><th>ISBN</th><th>Titulo</th><th>Categoria</th></tr>");
 		
-		for(LibroAR libro: listaLibros) {
+		for(Libro libro: listaLibros) {
 			out.println(
 					"<tr><td>" + 
 					libro.getIsbn() + "</td><td>" +
