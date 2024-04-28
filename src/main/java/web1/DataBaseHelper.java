@@ -39,7 +39,7 @@ public class DataBaseHelper {
 			}
 		}
 
-	public static int executeUpdate(String sql, Object ...paramseters) throws ClassNotFoundException {
+	public static int executeUpdate(String sql, Object ...paramseters) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -50,15 +50,14 @@ public class DataBaseHelper {
 				preparedStatement.setObject(i+1, paramseters[i]);
 			}
 			return preparedStatement.executeUpdate();
-		} catch(SQLException e) {
-			e.printStackTrace();
-			return -1;
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
 		} finally {
 			close(connection, preparedStatement, null);
 		}
 	}
 
-	public static ResultSet executeQuery(String sql, Object ...parameters) throws ClassNotFoundException {
+	public static ResultSet executeQuery(String sql, Object ...parameters){
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		try {
@@ -68,9 +67,8 @@ public class DataBaseHelper {
 				preparedStatement.setObject(i + 1, parameters[i]);
 			}
 			return preparedStatement.executeQuery();
-		} catch(SQLException e) {
-			e.printStackTrace();
-			return null;
+		} catch(SQLException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
 		}
 	}
 }

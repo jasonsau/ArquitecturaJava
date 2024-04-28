@@ -49,25 +49,41 @@ public class LibroAR {
 		return lista;
 	}
 	
-	public void insertar() throws ClassNotFoundException {
+	public void insertar() {
 		String sql = "INSERT INTO libros(isbn, titulo, categoria) VALUES(?,?,?)";
 		DataBaseHelper.executeUpdate(sql, getIsbn(), getTitulo(), getCategoria());
 	}
 	
-	public static List<LibroAR> buscarTodos() throws ClassNotFoundException, SQLException {
-		String sql = "SELECT *FROM libros";
+	public static List<LibroAR> buscarTodos() {
 		List<LibroAR> lista = new ArrayList<LibroAR>();
-		ResultSet resultSet = DataBaseHelper.executeQuery(sql);
-		while(resultSet.next()) {
-			lista.add(
-					new LibroAR(
-							resultSet.getString("isbn"), 
-							resultSet.getString("titulo"),
-							resultSet.getString("categoria")
-							)
-					);
+		String sql = "SELECT *FROM libros";
+		ResultSet resultSet = null;
+		resultSet = DataBaseHelper.executeQuery(sql);
+		try {
+			while(resultSet.next()) {
+				lista.add(
+						new LibroAR(
+								resultSet.getString("isbn"), 
+								resultSet.getString("titulo"),
+								resultSet.getString("categoria")
+								)
+						);
+			}			
+		}catch(SQLException e) {
+			throw new RuntimeException(e);
 		}
-		DataBaseHelper.close(resultSet.getStatement().getConnection(), (PreparedStatement)resultSet.getStatement(), resultSet);
+		finally {
+			try {
+				DataBaseHelper.close(
+						resultSet.getStatement().getConnection(),
+						(PreparedStatement)resultSet.getStatement(),
+						resultSet
+						);
+			} catch(SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		return lista;
+
 	}
 }
