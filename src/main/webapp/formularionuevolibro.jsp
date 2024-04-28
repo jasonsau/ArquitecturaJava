@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*" %>
-<%@ page import = "web1.LibroAR" %>  
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "java.util.List" %>
 <!DOCTYPE html>
@@ -21,8 +20,8 @@
 			<label for="categoria">Categoria:</label>
 			<%				
 				try {
-					List<String> categorias = LibroAR.buscarTodasLasCategorias();
-					out.println("<select name = 'categoria'>");
+					List<String> categorias =(List<String>) request.getAttribute("listaCategorias");
+					out.println("<select name = 'categoria' id = 'categoria'>");
 					for(String categoria: categorias) {
 						out.println("<option>"+categoria+"</option>");
 					}
@@ -36,4 +35,5 @@
 			<input type="submit" value="Guardar Libro">
 		</form>
 	</body>
+
 </html>

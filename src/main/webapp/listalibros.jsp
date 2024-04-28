@@ -14,9 +14,14 @@
 	<%
 
 		List<String> categorias =(List<String>) request.getAttribute("listaCategorias");
-		out.println("<select name = 'categoria'>");
+		String c = (String)request.getAttribute("c");
+		out.println("<select name = 'categoria' id='categoria'>");
 		for(String categoria: categorias) {
-			out.println("<option>"+categoria+"</option>");
+			String selected = "";
+			if(c.equals(categoria)) {
+				selected = "selected";
+			}
+			out.println("<option " + selected + ">"+categoria+"</option>");
 		}
 		out.println("</select>");
 
@@ -31,7 +36,7 @@
 					libro.getIsbn() + "</td><td>" +
 					libro.getTitulo() + "</td><td>" + 
 					libro.getCategoria() + "</td><td>" +
-					"<a href=?accion=borrarlibro&isbn="+libro.getIsbn()+">borrar</a></td>" +
+					"<a href='?accion=borrarlibro&isbn=" + libro.getIsbn() + "'>borrar</a></td>" +
 					"</tr>"
 			);
 		}
@@ -41,4 +46,12 @@
 
 	<a href = "?accion=formularionuevolibro">Nuevo</a>
 </body>
+	
+	<script>
+		const categoria = document.querySelector("#categoria");
+		categoria.addEventListener('change', (e) => {
+			const temp = e.target.value;
+			location.href = `?accion=filtrocategorialibro&categoria=` + temp;
+		})
+	</script>
 </html>
