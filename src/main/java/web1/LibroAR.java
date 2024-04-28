@@ -18,6 +18,10 @@ public class LibroAR {
 		this.categoria = categoria;	
 	}
 	
+	public LibroAR(String isbn) {
+		this.isbn = isbn;
+	}
+	
 	public String getIsbn() {
 		return this.isbn;
 	}
@@ -84,6 +88,12 @@ public class LibroAR {
 			}
 		}
 		return lista;
-
+	}
+	
+	public void borrar() {
+		String sql = "DELETE FROM libros WHERE isbn = ?";
+		System.out.println("**********************");
+		System.out.println(this.isbn);
+		DataBaseHelper.executeUpdate(sql, getIsbn());
 	}
 }

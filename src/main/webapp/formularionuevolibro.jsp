@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<h2>Formulario de Libro</h2>
-		<form method="POST" action="InsertarLibro.jsp">
+		<form method="POST" action="?accion=insertarlibro">
 			<label for="isbn">ISBN:</label>
 			<input type="text" name="isbn" required><br>
 			<label for="titulo">Titulo:</label>
