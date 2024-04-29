@@ -1,5 +1,6 @@
 <%@ page import="java.sql.*" %>
 <%@ page import = "web1.models.Libro" %>
+<%@ page import = "web1.models.Categoria" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>
@@ -13,15 +14,16 @@
 <body>
 	<%
 
-		List<String> categorias =(List<String>) request.getAttribute("listaCategorias");
+		List<Categoria> categorias =(List<Categoria>) request.getAttribute("listaCategorias");
 		String c = (String)request.getAttribute("c");
 		out.println("<select name = 'categoria' id='categoria'>");
-		for(String categoria: categorias) {
+		for(Categoria categoria: categorias) {
 			String selected = "";
-			if(c.equals(categoria)) {
+			
+			if(c.equals(String.valueOf(categoria.getId()))) {
 				selected = "selected";
 			}
-			out.println("<option " + selected + ">"+categoria+"</option>");
+			out.println("<option " + selected + " value ='" + categoria.getId() + "'>"+categoria.getNombre()+"</option>");
 		}
 		out.println("</select>");
 
@@ -35,7 +37,7 @@
 					"<tr><td>" + 
 					libro.getIsbn() + "</td><td>" +
 					libro.getTitulo() + "</td><td>" + 
-					libro.getCategoria() + "</td><td>" +
+					libro.getCategoria().getNombre() + "</td><td>" +
 					"<a href='?accion=borrarlibro&isbn=" + libro.getIsbn() + "'>borrar</a></td>" +
 					"</tr>"
 			);

@@ -34,12 +34,12 @@ public class LibroRepositoryJPA implements ILibroRepository{
 
 	@Override
 	public List<Libro> buscarTodos() {
-		return em.createQuery("SELECT l FROM Libro l", Libro.class).getResultList();
+		return em.createQuery("SELECT l FROM Libro l JOIN FETCH l.categoria", Libro.class).getResultList();
 	}
 
 	@Override
-	public List<Libro> buscarTodosPorCategoria(String categoria) {
-		TypedQuery<Libro> query = em.createQuery("SELECT l FROM Libro l WHERE l.categoria=:categoria", Libro.class);
+	public List<Libro> buscarTodosPorCategoria(Integer categoria) {
+		TypedQuery<Libro> query = em.createQuery("SELECT l FROM Libro l WHERE l.categoria.id=:categoria", Libro.class);
 		query.setParameter("categoria", categoria);
 		return query.getResultList();
 	}

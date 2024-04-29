@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import web1.helpers.DataBaseHelper;
+import web1.models.Categoria;
 import web1.models.Libro;
 
 public class LibroRepository {
@@ -38,7 +39,7 @@ public class LibroRepository {
 						new Libro(
 								resultSet.getString("isbn"), 
 								resultSet.getString("titulo"),
-								resultSet.getString("categoria")
+								new Categoria(resultSet.getInt("categoria"))
 								)
 						);
 			}			
@@ -69,7 +70,7 @@ public class LibroRepository {
 						new Libro(
 								resultSet.getString("isbn"),
 								resultSet.getString("titulo"),
-								resultSet.getString("categoria")
+								new Categoria(resultSet.getInt("categoria"))
 								)
 						);
 			}

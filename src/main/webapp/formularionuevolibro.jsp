@@ -3,6 +3,7 @@
 <%@ page import="java.sql.*" %>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "java.util.List" %>
+<%@ page import = "web1.models.Categoria" %>
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -20,10 +21,10 @@
 			<label for="categoria">Categoria:</label>
 			<%				
 				try {
-					List<String> categorias =(List<String>) request.getAttribute("listaCategorias");
+					List<Categoria> categorias =(List<Categoria>) request.getAttribute("listaCategorias");
 					out.println("<select name = 'categoria' id = 'categoria'>");
-					for(String categoria: categorias) {
-						out.println("<option>"+categoria+"</option>");
+					for(Categoria categoria: categorias) {
+						out.println("<option value = '" + categoria.getId() + "'>"+categoria.getNombre()+"</option>");
 					}
 					out.println("</select>");
 				}catch(Exception e) {

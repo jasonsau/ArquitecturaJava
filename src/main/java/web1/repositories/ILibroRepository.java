@@ -9,7 +9,7 @@ public interface ILibroRepository {
 	List<String> buscarTodasLasCategorias();
 	void insertar(Libro libro);
 	List<Libro> buscarTodos();
-	List<Libro> buscarTodosPorCategoria(String categoria);
+	List<Libro> buscarTodosPorCategoria(Integer categoria);
 	void borrar(String isbn);
 
 }
