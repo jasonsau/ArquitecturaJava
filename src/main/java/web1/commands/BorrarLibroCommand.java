@@ -1,31 +1,31 @@
-package commands;
+package web1.commands;
+
+import java.util.List;
+
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import web1.Libro;
-import web1.LibroRepository;
-import java.util.List;
+import web1.models.Libro;
+import web1.repositories.LibroRepositoryJPA;
+import web1.repositories.ILibroRepository;
 
-public class InsertarLibroCommand implements Command{
+public class BorrarLibroCommand implements Command{
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		LibroRepository libroRepository = new LibroRepository();
+	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String isbn = request.getParameter("isbn");
-		String titulo = request.getParameter("titulo");
-		String categoria = request.getParameter("categoria");
-		Libro libro = new Libro(isbn, titulo, categoria);
-		libroRepository.insertar(libro);
+		System.out.println("LLega al command");
+		System.out.println("ISBN: " + isbn);
+		ILibroRepository libroRepository = new LibroRepositoryJPA();
+		Libro libro = new Libro(isbn);
+		libroRepository.borrar(libro.getIsbn());
 		
 		List<String> listaCategorias = libroRepository.buscarTodasLasCategorias();
 		List<Libro> listaLibros = libroRepository.buscarTodos();
-		
+		request.setAttribute("c", "");
 		request.setAttribute("listaCategorias", listaCategorias);
 		request.setAttribute("listaLibros", listaLibros);
-		request.setAttribute("c", "");
-
 		RequestDispatcher dispatcher = request.getRequestDispatcher("listalibros.jsp");
 		dispatcher.forward(request, response);
 	}

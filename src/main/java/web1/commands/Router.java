@@ -1,4 +1,4 @@
-package commands;
+package web1.commands;
 
 import java.util.HashMap;
 import java.util.Map;

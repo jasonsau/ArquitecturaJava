@@ -1,5 +1,5 @@
 <%@ page import="java.sql.*" %>
-<%@ page import = "web1.Libro" %>
+<%@ page import = "web1.models.Libro" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "java.util.ArrayList" %>

@@ -1,10 +1,14 @@
-package web1;
+package web1.repositories;
 
 import java.sql.PreparedStatement;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import web1.helpers.DataBaseHelper;
+import web1.models.Libro;
 
 public class LibroRepository {
 	

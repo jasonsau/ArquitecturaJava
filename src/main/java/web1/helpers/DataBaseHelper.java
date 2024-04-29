@@ -1,4 +1,4 @@
-package web1;
+package web1.helpers;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

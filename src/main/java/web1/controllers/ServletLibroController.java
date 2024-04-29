@@ -1,13 +1,14 @@
-package web1;
+package web1.controllers;
 
 import jakarta.servlet.annotation.WebServlet;
+
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 
-import commands.Command;
-import commands.Router;
+import web1.commands.Command;
+import web1.commands.Router;
 
 @WebServlet("/controlador")
 public class ServletLibroController extends HttpServlet {

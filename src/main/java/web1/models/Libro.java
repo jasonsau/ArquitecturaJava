@@ -1,10 +1,19 @@
-package web1;
+package web1.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+
+@Entity
+@Table(name="libros")
 public class Libro {
 
+	@Id
 	private String isbn;
 	private String titulo;
 	private String categoria;
+	
+	public Libro() {}
 	
 	public Libro(String isbn, String titulo, String categoria) {
 		this.isbn = isbn;
