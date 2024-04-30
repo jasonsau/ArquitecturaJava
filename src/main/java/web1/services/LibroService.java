@@ -13,9 +13,12 @@ public class LibroService {
 	private ILibroRepository libroRepository;
 	private ICategoriaRepository categoriaRepository;
 	
-	public LibroService() {
-		this.libroRepository = new LibroRepositoryJPA();
-		this.categoriaRepository = new CategoriaRepositoryJPA();
+	public LibroService(
+			ILibroRepository libroRepository,
+			ICategoriaRepository categoriaRepository
+			) {
+		this.libroRepository = libroRepository;
+		this.categoriaRepository = categoriaRepository;
 	}
 	
 	public void insertarLibro(Libro libro) {

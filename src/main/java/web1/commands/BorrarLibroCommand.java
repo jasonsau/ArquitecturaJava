@@ -7,6 +7,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import web1.models.Libro;
+import web1.factory.WebFactory;
 import web1.models.Categoria;
 import web1.services.LibroService;
 
@@ -16,7 +17,7 @@ public class BorrarLibroCommand implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String isbn = request.getParameter("isbn");
 
-		LibroService libroService = new LibroService();
+		LibroService libroService = WebFactory.getService();
 		Libro libro = new Libro(isbn);
 		libroService.borrarLibro(libro.getIsbn());
 		
