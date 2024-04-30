@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nuevo Libro</title>
+</head>
+<body>
+    <form action = "/controlador/guardarnuevolibro" method="post">
+        <label for="isbn">ISBN:</label>
+        <input name="isbn" id="isbn" type="text" />
+        <label for="titulo">Titulo:</label>
+        <input name="titulo" id="titulo" type="text" />
+        <label for = "categoria">Categoria:</label>
+        <select name="categoria"  id ="categoria">
+            <option
+                    th:each="categoria: ${listaCategorias}"
+                    th:value="${categoria.getId()}"
+                    th:text="${categoria.getNombre()}"
+            ></option>
+        </select>
+        <input type="submit" value="Guardar" />
+    </form>
+
+</body>
+</html>

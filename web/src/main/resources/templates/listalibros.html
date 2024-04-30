@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Lista de Libros</title>
+    </head>
+<body>
+    <form action="/controlador/filtrocategoria" method="post">
+        <select name = "categoria">
+            <option
+                    th:each="categoria: ${listaCategorias}"
+                    th:value="${categoria.getId()}"
+                    th:text="${categoria.getNombre()}"
+            ></option>
+            <input type="submit" value="Filtrar" />
+        </select>
+    </form>
+
+    <h2>Lista de Libros</h2>
+    <table border="1">
+        <tr>
+            <th>ISBN</th>
+            <th>Titulo</th>
+            <th>Categoria</th>
+        </tr>
+        <tr th:each="libro: ${listaLibros}">
+            <td th:text="${libro.getIsbn()}"></td>
+            <td th:text="${libro.getTitulo()}"></td>
+            <td th:text="${libro.getCategoria().getNombre()}"></td>
+            <td>
+                <a th:href="@{ /controlador/borrarlibro( isbn=${libro.getIsbn()} ) }">Borrar</a>
+            </td>
+        </tr>
+    </table>
+    <a href="/controlador/formularionuevolibro">Nuevo</a>
+</body>
+</html>
