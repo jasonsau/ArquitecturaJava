@@ -1,9 +1,22 @@
 package com.js.web.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name= "categorias")
 public class Categoria {
 
+    @Id
     private Integer id;
     private String nombre;
+    @OneToMany(mappedBy = "categoria")
+    private List<Libro> libros = new ArrayList<>();
 
     public Categoria() {
     }

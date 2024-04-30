@@ -1,12 +1,27 @@
 package com.js.web.models;
 
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+@Table(name = "libros")
 public class Libro {
 
+    @Id
     private String isbn;
     private String titulo;
+    @ManyToOne
+    @JoinColumn(name = "categoria")
     private Categoria categoria;
 
+
     public Libro() {
+    }
+
+    public Libro(String isbn ) {
+        this.isbn = isbn;
+
     }
     public Libro(String isbn, String titulo, Categoria categoria) {
         this.isbn = isbn;

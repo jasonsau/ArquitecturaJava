@@ -2,66 +2,54 @@ package com.js.web.controller;
 
 import com.js.web.models.Categoria;
 import com.js.web.models.Libro;
+import com.js.web.service.LibroService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpRequest;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/controlador")
 public class LibroController {
 
-    List<Libro> listaLibros = new ArrayList<>();
-    List<Categoria> listaCategorias = new ArrayList<>();
+    private final LibroService libroService;
 
-    public LibroController() {
-        listaLibros.add(new Libro("1234", "El Quijote", new Categoria(1, "Novela")));
-        listaLibros.add(new Libro("5678", "El Aleph", new Categoria(2, "Cuento")));
-        listaLibros.add(new Libro("9101", "El Principito", new Categoria(3, "Infantil")));
-        listaCategorias.add(new Categoria(1, "Novela"));
-        listaCategorias.add(new Categoria(2, "Cuento"));
-        listaCategorias.add(new Categoria(3, "Infantil"));
+    public LibroController(LibroService libroService) {
+        this.libroService = libroService;
     }
-
     @GetMapping("/listalibros")
     public String listaLibros(Model model) {
-        model.addAttribute("listaLibros", listaLibros);
-        model.addAttribute("listaCategorias", listaCategorias);
+        model.addAttribute("listaLibros", libroService.buscarTodosLosLibros());
+        model.addAttribute("listaCategorias", libroService.buscarTodasLasCategorias());
         return "listalibros";
     }
 
     @GetMapping("/formularionuevolibro")
     public String formularioNuevoLibro(Model model) {
-        model.addAttribute("listaCategorias", listaCategorias);
+        model.addAttribute("listaCategorias", libroService.buscarTodasLasCategorias());
         return "formularionuevolibro";
     }
 
     @PostMapping("/guardarnuevolibro")
     public String guardarNuevoLibro(@ModelAttribute LibroDto libro) {
-        Categoria categoria = listaCategorias.stream()
-                .filter(c -> c.getId().equals(libro.getCategoria())).findFirst().orElse(null);
+        Categoria categoria = libroService.buscarCategoriaPorId(libro.getCategoria());
         Libro newLibro = new Libro(libro.getIsbn(), libro.getTitulo(), categoria);
-        listaLibros.add(newLibro);
+        libroService.insertarLibro(newLibro);
         return "redirect:/controlador/listalibros";
     }
 
     @GetMapping("/borrarlibro")
     public String eliminarLibro(@RequestParam String isbn) {
-        listaLibros.removeIf(l -> l.getIsbn().equals(isbn));
+        libroService.borraLibro(isbn);
         return "redirect:/controlador/listalibros";
     }
 
     @PostMapping("/filtrocategoria")
     public String filtrarLibro(@RequestParam String categoria, Model model) {
-        List<Libro> listaFiltrada = new ArrayList<>();
-        listaLibros.stream().filter(l -> l.getCategoria().getId().equals(Integer.parseInt(categoria))).forEach(listaFiltrada::add);
-
+        List<Libro> listaFiltrada = libroService.buscarTodosLosLibrosPorCategoria(Integer.parseInt(categoria));
         model.addAttribute("listaLibros", listaFiltrada);
-        model.addAttribute("listaCategorias", listaCategorias);
-        System.out.println("Filtrar por categoria: " + categoria);
+        model.addAttribute("listaCategorias", libroService.buscarTodasLasCategorias());
         return "listalibros";
     }
 
