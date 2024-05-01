@@ -21,6 +21,10 @@ public class Categoria {
     public Categoria() {
     }
 
+    public Categoria(Integer id) {
+        this.id = id;
+    }
+
     public Categoria(Integer id, String nombre) {
         this.id = id;
         this.nombre = nombre;
