@@ -1,14 +1,15 @@
 package com.js.web.restcontroller;
 
-import com.js.web.forms.LibroForm;
+import com.js.web.dto.LibroDto;
+import com.js.web.mappers.LibroMapper;
 import com.js.web.models.Categoria;
-import com.js.web.models.Libro;
 import com.js.web.service.LibroService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController()
 @RequestMapping("/api/libros")
@@ -21,13 +22,13 @@ public class LibroRestController {
     }
 
     @GetMapping
-    public List<Libro> buscarTodosLosLibros(){
-        return libroService.buscarTodosLosLibros();
+    public List<LibroDto> buscarTodosLosLibros(){
+        return libroService.buscarTodosLosLibros().stream().map(LibroMapper::toDto).toList();
     }
 
     @GetMapping(value = "/{isbn}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Libro buscarUnLibro(@PathVariable("isbn") String isbn){
-        return libroService.buscarUnLibro(isbn).orElse(null);
+    public Optional<LibroDto> buscarUnLibro(@PathVariable("isbn") String isbn){
+        return libroService.buscarUnLibro(isbn).map(LibroMapper::toDto);
     }
 
     @DeleteMapping(value = "/{isbn}")
@@ -38,13 +39,18 @@ public class LibroRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Libro insertarLibro(@RequestBody Libro libro){
-        libroService.insertarLibro(libro);
+    public LibroDto insertarLibro(@RequestBody LibroDto libro){
+        libroService.insertarLibro(LibroMapper.toEntity(libro));
         return libro;
     }
 
     @GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE, params = "categoria")
-    public List<Libro> buscarTodosLosLibrosPorCategoria(@RequestParam("categoria") Integer idCategoria){
-        return libroService.buscarTodosLosLibrosPorCategoria(idCategoria);
+    public List<LibroDto> buscarTodosLosLibrosPorCategoria(@RequestParam("categoria") Integer idCategoria){
+        return libroService.buscarTodosLosLibrosPorCategoria(idCategoria).stream().map(LibroMapper::toDto).toList();
+    }
+
+    @GetMapping(value = "/categorias", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Categoria> buscarTodasLasCategorias(){
+        return libroService.buscarTodasLasCategorias();
     }
 }
